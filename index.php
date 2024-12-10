@@ -1,4 +1,0 @@
-<?php
-
-    test origin branch
-?>
