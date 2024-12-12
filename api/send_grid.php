@@ -7,9 +7,14 @@ $player = 1;
 require_once 'config.php';
 require_once 'check_grid.php';
 
+//Get game id
+$stmt = $conn->prepare("SELECT id FROM game_list WHERE code = ?");
+$stmt->execute([$code]);
+$id = $stmt->fetchColumn();
+
 //Avoid duplicate requests
 $stmt = $conn->prepare("SELECT COUNT(*) FROM game_board WHERE id_game = ? AND player = ?");
-$stmt->execute([$code, $player]);
+$stmt->execute([$id, $player]);
 $exists = $stmt->fetchColumn() > 0;
 if ($exists) {
     exit();
@@ -28,11 +33,9 @@ $grid = [
     [0, 0, 0, 0, 7, 7, 7, 7, 7, 0],
 ];
 
-$stmt = $conn->prepare("SELECT id, nb_boats_2, nb_boats_3, nb_boats_4, nb_boats_5 FROM game_list WHERE code = ?");
+$stmt = $conn->prepare("SELECT nb_boats_2, nb_boats_3, nb_boats_4, nb_boats_5 FROM game_list WHERE code = ?");
 $stmt->execute([$code]);
 $result = $stmt->fetch();
-
-$id = $result['id'];
 $boats = [
     2 => $result['nb_boats_2'],
     3 => $result['nb_boats_3'],
