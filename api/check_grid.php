@@ -1,9 +1,12 @@
 <?php
 
-function check_grid($grid) {
-    echo "Grid check...\n";
-
-    $sizes = [];
+function check_grid($grid, $nb_boats) {
+    $sizes = [
+        2 => 0,
+        3 => 0,
+        4 => 0,
+        5 => 0,
+    ];
 
     //Clone grid and set every values to 0 for further verifications
     $rebuilt_grid = [];
@@ -65,7 +68,7 @@ function check_grid($grid) {
             return false;
         }
 
-        $sizes[$boat_id] = $size;
+        $sizes[$size]++;
         $boat_id++;
     } while ($size !== 0);
 
@@ -75,7 +78,11 @@ function check_grid($grid) {
         return false;
     }
 
-    echo "Done!\n";
+    //Check if the number of boats is correct
+    if ($sizes != $nb_boats) {
+        return false;
+    }
 
+    //If everything is correct, return true
     return true;
 }
