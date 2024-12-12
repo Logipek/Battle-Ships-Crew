@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Naval Brawl</title>
+    <script src="./script.js"></script>
 </head>
 <body>
-
+    <?php
+        include 'api/config.php';
+        
+    ?>
 </body>
-    <script src="./script.js"></script>
 </html>
