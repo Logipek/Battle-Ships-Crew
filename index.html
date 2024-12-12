@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naval Brawl</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main>
+      <section class="main">
+        <section class="left">
+          <div class="master-illustration">
+            <img class="svg-army" src="/css/img/airplane.svg"
+              alt="Master Illustration">
+          </div>
+        </section>
+        <section class="right">
+          <div class="content-right">
+            <h1>Naval Brawl</h1>
+            <p>Voulez-vous créer une nouvelle partie ? <br>
+              Cliquez sur le bouton ci-dessous pour démarrer une nouvelle partie
+              de Battle Ships. </p>
+            <div class="button-section">
+              <div class="form-create" id="create-game-btn">
+                <button>Create Room</button>
+                <i class="ph ph-plus"></i>
+              </div>
+              <div class="form-join" id="join">
+                <button>Join</button>
+                <i class="ph ph-sword"></i>
+              </div>
+            </div>
+
+            <!-- section creation de partie -->
+
+            <div id="create-game-section" style="display: none;"
+              class="buttons">
+              <hr class="separator">
+              <h3 href="#" class="play">Création d'une partie</h3>
+              <div class="buttom-create">
+                <input class="create-player" type="text"
+                  placeholder="Votre pseudo">
+                <a href="#"><button><i class="ph ph-plus"></i></button></a>
+              </div>
+            </div>
+
+            <!-- section join de partie -->
+            <div id="join-party-section" style="display: none;"
+              class="buttons">
+              <hr class="separator">
+              <h3 href="#" class="play">Création d'une partie</h3>
+              <div class="buttom-create">
+                <input class="create-player" type="text"
+                  placeholder="ID de la room">
+                <a href="#"><button><i class="ph ph-plus"></i></button></a>
+              </div>
+            </div>
+            <div class="corner">
+              <a href="https://github.com/">Github</a>
+              <i class="ph ph-github-logo"></i>
+            </div>
+          </section>
+        </section>
+      </main>
+    </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="/script.js"></script>
+  </html>
