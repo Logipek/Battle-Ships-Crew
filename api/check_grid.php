@@ -10,54 +10,66 @@ function check_grid($grid, $nb_boats) {
 
     //Clone grid and set every values to 0 for further verifications
     $rebuilt_grid = [];
-    for ($col = 0; $col < sizeof($grid); $col++) {
+    for ($row = 0; $row < sizeof($grid); $row++) {
         array_push($rebuilt_grid, []);
-        for ($row = 0; $row < sizeof($grid[$col]); $row++) {
-            array_push($rebuilt_grid[$col], 0);
+        for ($col = 0; $col < sizeof($grid[$row]); $col++) {
+            array_push($rebuilt_grid[$row], 0);
         }
     }
 
-    $boat_id = 1;
+    //Id 0 reserved for misses (cells colored in blue)
+    //Id 1 reserved for empty cells (cells colored in white)
+    //Id 2 reserved for hits (cells colored in red/yellow)
+    //Ids higher than 3 are for revealed boats
+    $boat_id = 3;
 
     do {
+        $found = true;
         $size = 0;
+        $row = 0;
+        $col = 0;
+        
         //Look for the boat id from right to left then top to bottom
-        for ($col = 0; $col < sizeof($grid); $col++) {
-            for ($row = 0; $row < sizeof($grid[$col]); $row++) {
-                //If found, set its size to 1
-                if ($grid[$col][$row] === $boat_id) {
-                    $size = 1;
-                    //Rebuild the other grid with the boat id
-                    $rebuilt_grid[$col][$row] = $boat_id;
-                    break;
-                }
+        while ($grid[$row][$col] !== $boat_id) {
+            $col++;
+            if (sizeof($grid[$row]) === $col) {
+                $col = 0;
+                $row++;
             }
-            //If size = 1, boat have been found
-            if ($size !== 0) {
+            if (sizeof($grid) === $row) {
+                $found = false;
                 break;
             }
         }
 
-        if ($col === sizeof($grid)) { break; }
+        if (!$found) {
+            break;
+        }
+
+        $rebuilt_grid[$row][$col] = $boat_id;
+        $size++;
 
         //Look for a horizontal boat
-        if (sizeof($grid[$col]) > $row + 1) {
-            while ($grid[$col][$row + 1] === $boat_id) {
+        ////echo $col . " " . $row . "\n";
+        if (sizeof($grid[$row]) > $col + 1) { //10 > 8
+            while ($grid[$row][$col + 1] === $boat_id) {
+                ////echo "Ligne " . $col . " " . $row . "\n";
                 $size++;
-                $row++;
-                $rebuilt_grid[$col][$row] = $boat_id;
-                if (sizeof($grid[$col]) === $row) {
+                $col++;
+                $rebuilt_grid[$row][$col] = $boat_id;
+                if (sizeof($grid[$row]) === $col + 1) {
                     break;
                 }
             }
         }
         //Look for a vertical boat
-        if (sizeof($grid) > $col && $size === 1) {
-            while ($grid[$col + 1][$row] === $boat_id) {
+        if ($size === 1) {
+            while ($grid[$row + 1][$col] === $boat_id) {
+                ////echo "Colonne " . $col . " " . $row . "\n";
                 $size++;
-                $col++;
-                $rebuilt_grid[$col][$row] = $boat_id;
-                if (sizeof($grid) === $col) {
+                $row++;
+                $rebuilt_grid[$row][$col] = $boat_id;
+                if (sizeof($grid) === $row + 1) {
                     break;
                 }
             }
@@ -70,7 +82,7 @@ function check_grid($grid, $nb_boats) {
 
         $sizes[$size]++;
         $boat_id++;
-    } while ($size !== 0);
+    } while ($found);
 
     //Original grid and rebuilt grid must match
     //It won't match if there's multiple boats with the same id
