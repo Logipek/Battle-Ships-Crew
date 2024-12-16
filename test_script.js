@@ -3,7 +3,7 @@
 class PlayerGrid {
     constructor(sizeTwo, sizeThree, sizeFour, sizeFive, roomCode, uid) {
         this.grid = [];
-        this.boatSize = 2;
+        this.boatSize = 5;
         this.boatId = 1001;
         this.horizontal = true;
         this.maxSizes = [sizeTwo, sizeThree, sizeFour, sizeFive];
@@ -34,7 +34,7 @@ class PlayerGrid {
         let checkNext = false;
         let disSubmit = false;
         document.querySelectorAll('input[type="radio"]').forEach(radio => {
-            if (this.maxSizes[radio.value - 2] === 0) {
+            if (this.maxSizes[radio.value - 2] <= 0) {
                 if (!radio.disabled) {
                     radio.disabled = true;
                     radio.checked = false;
@@ -52,11 +52,14 @@ class PlayerGrid {
                 }
             }
         });
+        document.querySelectorAll('span.bateau_span').forEach(span => {
+            span.innerHTML = this.maxSizes[parseInt(span.dataset.id) - 2];
+        });
         if (disSubmit) {
-            document.querySelector('input[type="button"]').disabled = true;
+            document.querySelector('button').disabled = true;
             return;
         }
-        document.querySelector('input[type="button"]').disabled = false;
+        document.querySelector('button').disabled = false;
     }
 
     resetRadius(elDiv) {
@@ -88,7 +91,7 @@ class PlayerGrid {
     }
 
     updateTable() {
-        document.querySelectorAll('td.main').forEach(td => {
+        document.querySelectorAll('td.cell').forEach(td => {
             let x = td.cellIndex - 1;
             let y = td.parentNode.rowIndex - 1;
             if (this.grid[y][x] === 0) {
@@ -120,7 +123,7 @@ class PlayerGrid {
     }
     
     setEventsTable() {
-        document.querySelectorAll('td.main').forEach(td => {
+        document.querySelectorAll('td.cell').forEach(td => {
             //Contextmenu event
             td.addEventListener('contextmenu', e => {
                 //Prevent default context menu
@@ -135,7 +138,7 @@ class PlayerGrid {
             //Mouseover event
             td.addEventListener('mouseover', e => {
                 let x = e.target.cellIndex;
-                let y = e.target.parentNode.rowIndex;
+                let y = e.target.parentNode.rowIndex - 1;
                 //For horizontal direction
                 if (this.horizontal) {
                     //If the cell contains a boat, change color to red
@@ -298,37 +301,38 @@ class PlayerGrid {
     }
 
     setEventButton() {
-        document.querySelector('input[type="button"]').addEventListener('click', e => {
+        document.querySelector('button').addEventListener('click', e => {
             this.refactorGrid();
-            //this.sendGrid();
+            // this.sendGrid();
             console.log('Grid sent');
         });
     }
 
-    //async sendGrid() {
-    //    const data = {
-    //        grid: this.grid,
-    //        roomCode: this.roomCode,
-    //        player: this.uid,
-    //    }
-    //    await fetch('https://navalbrawl.jmouzet.fr/api/sendGrid.php', {
-    //        method: 'POST',
-    //        headers: {
-    //            'Content-Type': 'application/json'
-    //        },
-    //        body: JSON.stringify(data),
-    //    })
-    //    .then(response => response.json())
-    //    .then(data => {
-    //        console.log(data);
-    //    })
-    //}
+    // async sendGrid() {
+    //     const data = {
+    //         grid: this.grid,
+    //         roomCode: this.roomCode,
+    //         player: this.uid,
+    //     }
+    //     await fetch('https://navalbrawl.jmouzet.fr/api/sendGrid.php', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log(data);
+    //     })
+    // }
 
     run() {
         this.initGrid();
         this.changeSizesState();
         this.setEventsRadio();
         this.setEventButton();
+        this.changeSizesState();
         this.setEventsTable();
     }
 }
