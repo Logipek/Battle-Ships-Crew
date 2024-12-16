@@ -1,20 +1,16 @@
 <?php
 
-//Temp
-$code = "a44506";
-$uid = '6de0dc62da51ecd09a3b2f1440540799';
-$grid = [
-    [0, 0, 0, 3, 0, 8, 0, 0, 0, 0],
-    [0, 0, 0, 3, 0, 8, 0, 0, 0, 0],
-    [0, 0, 0, 3, 0, 8, 0, 0, 0, 9],
-    [0, 6, 0, 0, 0, 8, 0, 0, 0, 9],
-    [0, 6, 0, 0, 0, 8, 0, 0, 0, 9],
-    [0, 6, 0, 0, 0, 0, 0, 0, 0, 9],
-    [0, 6, 0, 0, 0, 0, 0, 0, 0, 9],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 7, 0, 0, 0, 0, 0, 4, 4, 4],
-    [0, 7, 0, 0, 0, 5, 5, 0, 0, 0],
-];
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($data['uid']) || !isset($data['code']) || !isset($data['grid'])) {
+    $error = "Données manquantes";
+    echo json_encode(['success' => false, 'error' => $error]);
+    exit();
+}
+
+$uid = htmlspecialchars($data['uid']);
+$code = htmlspecialchars(strtoupper($data['code']));
+$grid = $data['grid'];
 
 require_once 'config.php';
 require_once 'check_grid.php';
@@ -30,7 +26,8 @@ $stmt = $conn->prepare("SELECT COUNT(*) FROM game_board b
 $stmt->execute([$id, $uid]);
 $exists = $stmt->fetchColumn() > 0;
 if ($exists) {
-    echo "Grid already sent";
+    $error = "Grille déjà envoyée";
+    echo json_encode(['success' => false, 'error' => $error]);
     exit();
 }
 
@@ -45,7 +42,8 @@ $boats = [
 ];
 
 if(!check_grid($grid, $boats)) {
-    echo "Invalid grid";
+    $error = "Grille invalide";
+    echo json_encode(['success' => false, 'error' => $error]);
     exit();
 }
 
@@ -65,4 +63,5 @@ foreach ($inserts as $insert) {
     ]);
 }
 
-echo "Grid sent";
+echo json_encode(['success' => true]);
+exit();

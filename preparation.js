@@ -297,37 +297,38 @@ class PlayerGrid {
             }
         }
         this.updateTable();
-        console.log('Grid refactored:', this.grid);
     }
 
-    setEventButton() {
-        document.querySelector('button').addEventListener('click', e => {
-            this.refactorGrid();
-            // this.sendGrid();
-            console.log('Grid sent');
-        });
+    async setEventButton() {
+        document.querySelector('button').addEventListener('click', this.sendGrid.bind(this));
     }
 
-    // async sendGrid() {
-    //     const data = {
-    //         grid: this.grid,
-    //         roomCode: this.roomCode,
-    //         player: this.uid,
-    //     }
-    //     await fetch('https://navalbrawl.jmouzet.fr/api/sendGrid.php', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log(data);
-    //     })
-    // }
+    async sendGrid() {
+        this.refactorGrid();
 
-    run() {
+        const data = {
+            grid: this.grid,
+            code: this.roomCode,
+            uid: this.uid,
+        }
+        await fetch(`https://navalbrawl.jmouzet.fr/api/send_grid.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                alert(data.error);
+            } else {
+                window.location.href = 'https://navalbrawl.jmouzet.fr/game.html';
+            }
+        })
+    }
+
+    async run() {
         this.initGrid();
         this.changeSizesState();
         this.setEventsRadio();
@@ -343,6 +344,6 @@ const sizeThree = 2;
 const sizeFour = 1;
 const sizeFive = 2;
 const roomCode = "a44506";
-const uid = "c6ad1bfde2218b7d4b9bb764f6bbe950";
+const uid = "6de0dc62da51ecd09a3b2f1440540799";
 
 let playerGrid = new PlayerGrid(sizeTwo, sizeThree, sizeFour, sizeFive, roomCode, uid);

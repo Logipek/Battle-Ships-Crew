@@ -113,18 +113,18 @@
   margin-top: 1rem;
 }
 
-.buttom-create input {
+.button-create input {
   margin-top: 20px;
   border: 2px solid #eceff4;
   border-radius: 5px;
   padding-left: 8px;
 }
 
-.buttom-create input::placeholder {
+.button-create input::placeholder {
   padding-left: 5px;
 }
 
-.buttom-create a {
+.button-create a {
   border-radius: 5px;
   padding: 2px;
   margin-right: -2px;

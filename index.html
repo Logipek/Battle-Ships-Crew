@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naval Brawl</title>
+    <title>Menu | Naval Brawl</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -36,27 +36,31 @@
 
             <div id="create-game-section" style="display: none;"
               class="buttons">
-              <hr class="separator">
-              <h3 href="#" class="play">Création d'une partie</h3>
-              <div class="buttom-create">
-                <input class="create-player" type="text"
-                  placeholder="Votre pseudo">
-                <a href="#"><button><i class="ph ph-plus"></i></button></a>
-              </div>
+              <form id="form-create">
+                <hr class="separator">
+                <h3 href="#" class="play">Création d'une partie</h3>
+                <div class="buttom-create">
+                  <input class="create-player" id="create-pseudo" type="text"
+                    placeholder="Votre pseudo" required>
+                  <a href="#"><button><i class="ph ph-plus"></i></button></a>
+                </div>
+              </form>
             </div>
 
             <!-- section join de partie -->
             <div id="join-party-section" style="display: none;"
               class="buttons">
-              <hr class="separator">
-              <h3 href="#" class="play">Création d'une partie</h3>
-              <div class="buttom-create">
-                <input class="create-player" type="text"
-                  placeholder="Votre pseudo">
-                <input class="create-player" type="text"
-                  placeholder="ID de la room">
-                <a href="#"><button><i class="ph ph-plus"></i></button></a>
-              </div>
+              <form id="form-join">
+                <hr class="separator">
+                <h3 href="#" class="play">Création d'une partie</h3>
+                <div class="buttom-create">
+                  <input class="create-player" id="join-pseudo" type="text"
+                    placeholder="Votre pseudo" required>
+                  <input class="create-player" id="join-room" type="text"
+                    placeholder="ID de la room" maxlength="6" minlength="6" required>
+                  <a href="#"><button><i class="ph ph-plus"></i></button></a>
+                </div>
+              </form>
             </div>
             <div class="corner">
               <a href="https://github.com/">Github</a>
@@ -68,5 +72,5 @@
     </body>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <script src="script.js"></script>
+    <script src="index.js"></script>
   </html>
