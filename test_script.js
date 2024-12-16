@@ -1,12 +1,14 @@
 'use strict';
 
 class PlayerGrid {
-    constructor(sizeTwo, sizeThree, sizeFour, sizeFive) {
+    constructor(sizeTwo, sizeThree, sizeFour, sizeFive, roomCode, uid) {
         this.grid = [];
         this.boatSize = 2;
-        this.boatId = 3;
+        this.boatId = 1001;
         this.horizontal = true;
         this.maxSizes = [sizeTwo, sizeThree, sizeFour, sizeFive];
+        this.roomCode = roomCode;
+        this.uid = uid;
         this.run();
     }
 
@@ -107,16 +109,12 @@ class PlayerGrid {
                     row[index] = 0;
                     size++;
                 }
-                if (cell > boatId) {
-                    row[index]--;
-                }
             });
         });
         //Increment back the max number of this boat's size
         this.maxSizes[size - 2]++;
         this.changeSizesState();        
-        //Decrement boatId and redraw the table
-        this.boatId--;
+        //Redraw the table
         this.updateTable();
         console.log('Boat removed:', boatId);
     }
@@ -223,9 +221,9 @@ class PlayerGrid {
                 let y = e.target.parentNode.rowIndex;
                 //For horizontal direction
                 if (this.horizontal) {
-                    //Check if the boat overlaps with another boat
-                    if (e.target.parentNode.children[x].children[0].style.backgroundColor === 'lightcoral') {
-                        console.log('Overlap');
+                    //Check if clicked on a boat
+                    if (this.grid[y - 1][x - 1] >= 3) {
+                        console.log('Remove boat');
                         this.removeBoat(this.grid[y - 1][x - 1]);
                         return;
                     }
@@ -234,15 +232,22 @@ class PlayerGrid {
                         console.log('Out of bounds');
                         return;
                     }
+                    //Check if the boat overlaps with another boat
+                    for (let i = x; i < x + this.boatSize; i++) {
+                        if (this.grid[y - 1][i - 1] >= 3) {
+                            console.log('Overlap');
+                            return;
+                        }
+                    }
                     //If not, add the boat to the grid
                     for (let i = x; i < x + this.boatSize; i++) {
                         this.grid[y - 1][i - 1] = this.boatId;
                     }
                 //For vertical direction
                 } else {
-                    //Check if the boat overlaps with another boat
-                    if (e.target.parentNode.parentNode.children[y].children[x].children[0].style.backgroundColor === 'lightcoral') {
-                        console.log('Overlap');
+                    //Check if clicked on a boat
+                    if (this.grid[y - 1][x - 1] >= 3) {
+                        console.log('Remove boat');
                         this.removeBoat(this.grid[y - 1][x - 1]);
                         return;
                     }
@@ -250,6 +255,13 @@ class PlayerGrid {
                     if (y + this.boatSize > 11) {
                         console.log('Out of bounds');
                         return;
+                    }
+                    //Check if the boat overlaps with another boat
+                    for (let i = y; i < y + this.boatSize; i++) {
+                        if (this.grid[i - 1][x - 1] >= 3) {
+                            console.log('Overlap');
+                            return;
+                        }
                     }
                     //If not, add the boat to the grid
                     for (let i = y; i < y + this.boatSize; i++) {
@@ -266,12 +278,67 @@ class PlayerGrid {
         });
     }
 
+    refactorGrid() {
+        let newId = 3;
+        let idMap = new Map();
+
+        for (let i = 0; i < this.grid.length; i++) {
+            for (let j = 0; j < this.grid[i].length; j++) {
+            let currentId = this.grid[i][j];
+            if (currentId >= 3) {
+                if (!idMap.has(currentId)) {
+                idMap.set(currentId, newId++);
+                }
+                this.grid[i][j] = idMap.get(currentId);
+            }
+            }
+        }
+        this.updateTable();
+        console.log('Grid refactored:', this.grid);
+    }
+
+    setEventButton() {
+        document.querySelector('input[type="button"]').addEventListener('click', e => {
+            this.refactorGrid();
+            //this.sendGrid();
+            console.log('Grid sent');
+        });
+    }
+
+    //async sendGrid() {
+    //    const data = {
+    //        grid: this.grid,
+    //        roomCode: this.roomCode,
+    //        player: this.uid,
+    //    }
+    //    await fetch('https://navalbrawl.jmouzet.fr/api/sendGrid.php', {
+    //        method: 'POST',
+    //        headers: {
+    //            'Content-Type': 'application/json'
+    //        },
+    //        body: JSON.stringify(data),
+    //    })
+    //    .then(response => response.json())
+    //    .then(data => {
+    //        console.log(data);
+    //    })
+    //}
+
     run() {
         this.initGrid();
         this.changeSizesState();
         this.setEventsRadio();
+        this.setEventButton();
         this.setEventsTable();
     }
 }
 
-let playerGrid = new PlayerGrid(2, 2, 1, 2);
+//Temp
+const sizeTwo = 2;
+const sizeThree = 2;
+const sizeFour = 1;
+const sizeFive = 2;
+const roomCode = "a44506";
+const uid = "c6ad1bfde2218b7d4b9bb764f6bbe950";
+
+let playerGrid = new PlayerGrid(sizeTwo, sizeThree, sizeFour, sizeFive, roomCode, uid);
