@@ -212,5 +212,11 @@
 }
 
 .btn-valider:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
+}
+
+div.cell_div {
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
 }
