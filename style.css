@@ -5,6 +5,8 @@
     Ubuntu, sans-serif;
 }
 
+/* Page index.html */
+
 .main {
   display: flex;
   width: 100%;
@@ -127,4 +129,67 @@
   padding: 2px;
   margin-right: -2px;
   border: 2px solid #f1f1f1;
+}
+
+/* Page Game.html */
+
+/* Style général de la section */
+/* Style général de la section */
+/* Style général de la section */
+/* Style général de la section */
+.left-preparation {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left .title h1 {
+  font-size: 1.8em;
+  text-align: center;
+  color: #333;
+}
+
+.selection-bateau p {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.classes {
+  display: flex;
+  flex-wrap: wrap; /* Permet le retour à la ligne */
+  gap: 10px;
+  justify-content: center; /* Centrage horizontal */
+}
+
+.bateau {
+  text-align: center;
+  width: 45%; /* Assure que deux bateaux tiennent sur une ligne */
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.bateau img {
+  width: auto;
+  height: 100px; /* Taille uniforme pour toutes les images */
+  max-width: 100%; /* Préserve le ratio d'aspect */
+  object-fit: contain; /* Ajuste les dimensions pour s'adapter à l'espace */
+  border-radius: 6px;
+}
+
+.bateau p {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.bateau:hover {
+  transform: scale(1.1);
+  border-color: #0078d7;
 }
