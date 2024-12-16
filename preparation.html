@@ -38,12 +38,8 @@
 }
 
 .cell {
-  background: #eceff4;
+  background: lightskyblue;
   cursor: pointer;
-}
-
-.cell:hover {
-  background: #e5e9f0;
 }
 
 .right {
@@ -71,28 +67,28 @@
             <p>Choisissez un bateau à placer sur la grille de jeu :</p>
             <div class="classes">
               <label class="bateau">
-                <input type="radio" name="bateau" value="porte-avions">
+                <input type="radio" name="bateau" value="5" checked>
                 <img src="/css/img/porte-avions.png" alt="Porte-avions">
-                <p>Porte-avions</p>
+                <p>Porte-avions (<span class="bateau_span" data-id="5">0</span>)</p>
               </label>
               <label class="bateau">
-                <input type="radio" name="bateau" value="torpilleur">
+                <input type="radio" name="bateau" value="4">
                 <img src="/css/img/torpilleur.png" alt="Torpilleur">
-                <p>Torpilleur</p>
+                <p>Torpilleur (<span class="bateau_span" data-id="4">0</span>)</p>
               </label>
               <label class="bateau">
-                <input type="radio" name="bateau" value="sous-marin">
+                <input type="radio" name="bateau" value="3">
                 <img src="/css/img/sous-marin.png" alt="Sous-marin">
-                <p>Sous-marin</p>
+                <p>Sous-marin (<span class="bateau_span" data-id="3">0</span>)</p>
               </label>
               <label class="bateau">
-                <input type="radio" name="bateau" value="croiseur">
+                <input type="radio" name="bateau" value="2">
                 <img src="/css/img/croiseur.png" alt="Croiseur">
-                <p>Croiseur</p>
+                <p>Croiseur (<span class="bateau_span" data-id="2">0</span>)</p>
               </label>
             </div>
             <div class="btn-valider">
-              <button class="btn-valider-style">Valider la séléction</button>
+              <button class="btn-valider-style">Valider la sélection</button>
             </div>
           </div>
         </section>
@@ -120,133 +116,133 @@
                   <tbody>
                     <tr>
                       <td>A</td>
-                      <td class="cell" data-row="0" data-col="0"></td>
-                      <td class="cell" data-row="0" data-col="1"></td>
-                      <td class="cell" data-row="0" data-col="2"></td>
-                      <td class="cell" data-row="0" data-col="3"></td>
-                      <td class="cell" data-row="0" data-col="4"></td>
-                      <td class="cell" data-row="0" data-col="5"></td>
-                      <td class="cell" data-row="0" data-col="6"></td>
-                      <td class="cell" data-row="0" data-col="7"></td>
-                      <td class="cell" data-row="0" data-col="8"></td>
-                      <td class="cell" data-row="0" data-col="9"></td>
+                      <td class="cell" data-row="0" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="0" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>B</td>
-                      <td class="cell" data-row="1" data-col="0"></td>
-                      <td class="cell" data-row="1" data-col="1"></td>
-                      <td class="cell" data-row="1" data-col="2"></td>
-                      <td class="cell" data-row="1" data-col="3"></td>
-                      <td class="cell" data-row="1" data-col="4"></td>
-                      <td class="cell" data-row="1" data-col="5"></td>
-                      <td class="cell" data-row="1" data-col="6"></td>
-                      <td class="cell" data-row="1" data-col="7"></td>
-                      <td class="cell" data-row="1" data-col="8"></td>
-                      <td class="cell" data-row="1" data-col="9"></td>
+                      <td class="cell" data-row="1" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="1" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>C</td>
-                      <td class="cell" data-row="2" data-col="0"></td>
-                      <td class="cell" data-row="2" data-col="1"></td>
-                      <td class="cell" data-row="2" data-col="2"></td>
-                      <td class="cell" data-row="2" data-col="3"></td>
-                      <td class="cell" data-row="2" data-col="4"></td>
-                      <td class="cell" data-row="2" data-col="5"></td>
-                      <td class="cell" data-row="2" data-col="6"></td>
-                      <td class="cell" data-row="2" data-col="7"></td>
-                      <td class="cell" data-row="2" data-col="8"></td>
-                      <td class="cell" data-row="2" data-col="9"></td>
+                      <td class="cell" data-row="2" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="2" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>D</td>
-                      <td class="cell" data-row="3" data-col="0"></td>
-                      <td class="cell" data-row="3" data-col="1"></td>
-                      <td class="cell" data-row="3" data-col="2"></td>
-                      <td class="cell" data-row="3" data-col="3"></td>
-                      <td class="cell" data-row="3" data-col="4"></td>
-                      <td class="cell" data-row="3" data-col="5"></td>
-                      <td class="cell" data-row="3" data-col="6"></td>
-                      <td class="cell" data-row="3" data-col="7"></td>
-                      <td class="cell" data-row="3" data-col="8"></td>
-                      <td class="cell" data-row="3" data-col="9"></td>
+                      <td class="cell" data-row="3" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="3" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>E</td>
-                      <td class="cell" data-row="4" data-col="0"></td>
-                      <td class="cell" data-row="4" data-col="1"></td>
-                      <td class="cell" data-row="4" data-col="2"></td>
-                      <td class="cell" data-row="4" data-col="3"></td>
-                      <td class="cell" data-row="4" data-col="4"></td>
-                      <td class="cell" data-row="4" data-col="5"></td>
-                      <td class="cell" data-row="4" data-col="6"></td>
-                      <td class="cell" data-row="4" data-col="7"></td>
-                      <td class="cell" data-row="4" data-col="8"></td>
-                      <td class="cell" data-row="4" data-col="9"></td>
+                      <td class="cell" data-row="4" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="4" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>F</td>
-                      <td class="cell" data-row="5" data-col="0"></td>
-                      <td class="cell" data-row="5" data-col="1"></td>
-                      <td class="cell" data-row="5" data-col="2"></td>
-                      <td class="cell" data-row="5" data-col="3"></td>
-                      <td class="cell" data-row="5" data-col="4"></td>
-                      <td class="cell" data-row="5" data-col="5"></td>
-                      <td class="cell" data-row="5" data-col="6"></td>
-                      <td class="cell" data-row="5" data-col="7"></td>
-                      <td class="cell" data-row="5" data-col="8"></td>
-                      <td class="cell" data-row="5" data-col="9"></td>
+                      <td class="cell" data-row="5" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="5" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>G</td>
-                      <td class="cell" data-row="6" data-col="0"></td>
-                      <td class="cell" data-row="6" data-col="1"></td>
-                      <td class="cell" data-row="6" data-col="2"></td>
-                      <td class="cell" data-row="6" data-col="3"></td>
-                      <td class="cell" data-row="6" data-col="4"></td>
-                      <td class="cell" data-row="6" data-col="5"></td>
-                      <td class="cell" data-row="6" data-col="6"></td>
-                      <td class="cell" data-row="6" data-col="7"></td>
-                      <td class="cell" data-row="6" data-col="8"></td>
-                      <td class="cell" data-row="6" data-col="9"></td>
+                      <td class="cell" data-row="6" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="6" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>H</td>
-                      <td class="cell" data-row="7" data-col="0"></td>
-                      <td class="cell" data-row="7" data-col="1"></td>
-                      <td class="cell" data-row="7" data-col="2"></td>
-                      <td class="cell" data-row="7" data-col="3"></td>
-                      <td class="cell" data-row="7" data-col="4"></td>
-                      <td class="cell" data-row="7" data-col="5"></td>
-                      <td class="cell" data-row="7" data-col="6"></td>
-                      <td class="cell" data-row="7" data-col="7"></td>
-                      <td class="cell" data-row="7" data-col="8"></td>
-                      <td class="cell" data-row="7" data-col="9"></td>
+                      <td class="cell" data-row="7" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="7" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>I</td>
-                      <td class="cell" data-row="8" data-col="0"></td>
-                      <td class="cell" data-row="8" data-col="1"></td>
-                      <td class="cell" data-row="8" data-col="2"></td>
-                      <td class="cell" data-row="8" data-col="3"></td>
-                      <td class="cell" data-row="8" data-col="4"></td>
-                      <td class="cell" data-row="8" data-col="5"></td>
-                      <td class="cell" data-row="8" data-col="6"></td>
-                      <td class="cell" data-row="8" data-col="7"></td>
-                      <td class="cell" data-row="8" data-col="8"></td>
-                      <td class="cell" data-row="8" data-col="9"></td>
+                      <td class="cell" data-row="8" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="8" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                     <tr>
                       <td>J</td>
-                      <td class="cell" data-row="9" data-col="0"></td>
-                      <td class="cell" data-row="9" data-col="1"></td>
-                      <td class="cell" data-row="9" data-col="2"></td>
-                      <td class="cell" data-row="9" data-col="3"></td>
-                      <td class="cell" data-row="9" data-col="4"></td>
-                      <td class="cell" data-row="9" data-col="5"></td>
-                      <td class="cell" data-row="9" data-col="6"></td>
-                      <td class="cell" data-row="9" data-col="7"></td>
-                      <td class="cell" data-row="9" data-col="8"></td>
-                      <td class="cell" data-row="9" data-col="9"></td>
+                      <td class="cell" data-row="9" data-col="0"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="1"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="2"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="3"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="4"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="5"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="6"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="7"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="8"><div class="cell_div"></div></td>
+                      <td class="cell" data-row="9" data-col="9"><div class="cell_div"></div></td>
                     </tr>
                   </tbody>
                 </table>
@@ -259,5 +255,5 @@
   </body>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <script src="/script.js"></script>
+  <script src="/test_script.js"></script>
 </html>

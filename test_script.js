@@ -183,7 +183,7 @@ class PlayerGrid {
                         return;
                     }
                     //If the boat is out of bounds, return
-                    if (y + this.boatSize > 11) {
+                    if (y + this.boatSize > 10) {
                         return;
                     }
                     //Check if the boat overlaps with another boat
