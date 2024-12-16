@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naval Brawl</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+      .grid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.battleship-grid {
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.battleship-grid th,
+.battleship-grid td {
+  border: 1px solid #999;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.battleship-grid th:first-child,
+.battleship-grid td:first-child {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+.battleship-grid thead th {
+  background: #f0f0f0;
+}
+
+.cell {
+  background: #eceff4;
+  cursor: pointer;
+}
+
+.cell:hover {
+  background: #e5e9f0;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  height: 100vh;
+}
+
+.content-right {
+  width: 100%;
+  max-width: 600px;
+}
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="main">
+        <section class="left">
+          <div class="title">
+            <h1>Phase de préparation</h1>
+          </div>
+          <div class="selection-bateau">
+            <p>Choisissez un bateau à placer sur la grille de jeu :</p>
+            <div class="classes">
+              <label class="bateau">
+                <input type="radio" name="bateau" value="porte-avions">
+                <img src="/css/img/porte-avions.png" alt="Porte-avions">
+                <p>Porte-avions</p>
+              </label>
+              <label class="bateau">
+                <input type="radio" name="bateau" value="torpilleur">
+                <img src="/css/img/torpilleur.png" alt="Torpilleur">
+                <p>Torpilleur</p>
+              </label>
+              <label class="bateau">
+                <input type="radio" name="bateau" value="sous-marin">
+                <img src="/css/img/sous-marin.png" alt="Sous-marin">
+                <p>Sous-marin</p>
+              </label>
+              <label class="bateau">
+                <input type="radio" name="bateau" value="croiseur">
+                <img src="/css/img/croiseur.png" alt="Croiseur">
+                <p>Croiseur</p>
+              </label>
+            </div>
+            <div class="btn-valider">
+              <button class="btn-valider-style">Valider la séléction</button>
+            </div>
+          </div>
+        </section>
+        <section class="right">
+          <div class="content-right">
+            <h2>Grille de jeu</h2>
+            <div class="grid-container">
+              <div class="grid-container">
+                <table class="battleship-grid">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>1</th>
+                      <th>2</th>
+                      <th>3</th>
+                      <th>4</th>
+                      <th>5</th>
+                      <th>6</th>
+                      <th>7</th>
+                      <th>8</th>
+                      <th>9</th>
+                      <th>10</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>A</td>
+                      <td class="cell" data-row="0" data-col="0"></td>
+                      <td class="cell" data-row="0" data-col="1"></td>
+                      <td class="cell" data-row="0" data-col="2"></td>
+                      <td class="cell" data-row="0" data-col="3"></td>
+                      <td class="cell" data-row="0" data-col="4"></td>
+                      <td class="cell" data-row="0" data-col="5"></td>
+                      <td class="cell" data-row="0" data-col="6"></td>
+                      <td class="cell" data-row="0" data-col="7"></td>
+                      <td class="cell" data-row="0" data-col="8"></td>
+                      <td class="cell" data-row="0" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>B</td>
+                      <td class="cell" data-row="1" data-col="0"></td>
+                      <td class="cell" data-row="1" data-col="1"></td>
+                      <td class="cell" data-row="1" data-col="2"></td>
+                      <td class="cell" data-row="1" data-col="3"></td>
+                      <td class="cell" data-row="1" data-col="4"></td>
+                      <td class="cell" data-row="1" data-col="5"></td>
+                      <td class="cell" data-row="1" data-col="6"></td>
+                      <td class="cell" data-row="1" data-col="7"></td>
+                      <td class="cell" data-row="1" data-col="8"></td>
+                      <td class="cell" data-row="1" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>C</td>
+                      <td class="cell" data-row="2" data-col="0"></td>
+                      <td class="cell" data-row="2" data-col="1"></td>
+                      <td class="cell" data-row="2" data-col="2"></td>
+                      <td class="cell" data-row="2" data-col="3"></td>
+                      <td class="cell" data-row="2" data-col="4"></td>
+                      <td class="cell" data-row="2" data-col="5"></td>
+                      <td class="cell" data-row="2" data-col="6"></td>
+                      <td class="cell" data-row="2" data-col="7"></td>
+                      <td class="cell" data-row="2" data-col="8"></td>
+                      <td class="cell" data-row="2" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>D</td>
+                      <td class="cell" data-row="3" data-col="0"></td>
+                      <td class="cell" data-row="3" data-col="1"></td>
+                      <td class="cell" data-row="3" data-col="2"></td>
+                      <td class="cell" data-row="3" data-col="3"></td>
+                      <td class="cell" data-row="3" data-col="4"></td>
+                      <td class="cell" data-row="3" data-col="5"></td>
+                      <td class="cell" data-row="3" data-col="6"></td>
+                      <td class="cell" data-row="3" data-col="7"></td>
+                      <td class="cell" data-row="3" data-col="8"></td>
+                      <td class="cell" data-row="3" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>E</td>
+                      <td class="cell" data-row="4" data-col="0"></td>
+                      <td class="cell" data-row="4" data-col="1"></td>
+                      <td class="cell" data-row="4" data-col="2"></td>
+                      <td class="cell" data-row="4" data-col="3"></td>
+                      <td class="cell" data-row="4" data-col="4"></td>
+                      <td class="cell" data-row="4" data-col="5"></td>
+                      <td class="cell" data-row="4" data-col="6"></td>
+                      <td class="cell" data-row="4" data-col="7"></td>
+                      <td class="cell" data-row="4" data-col="8"></td>
+                      <td class="cell" data-row="4" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>F</td>
+                      <td class="cell" data-row="5" data-col="0"></td>
+                      <td class="cell" data-row="5" data-col="1"></td>
+                      <td class="cell" data-row="5" data-col="2"></td>
+                      <td class="cell" data-row="5" data-col="3"></td>
+                      <td class="cell" data-row="5" data-col="4"></td>
+                      <td class="cell" data-row="5" data-col="5"></td>
+                      <td class="cell" data-row="5" data-col="6"></td>
+                      <td class="cell" data-row="5" data-col="7"></td>
+                      <td class="cell" data-row="5" data-col="8"></td>
+                      <td class="cell" data-row="5" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>G</td>
+                      <td class="cell" data-row="6" data-col="0"></td>
+                      <td class="cell" data-row="6" data-col="1"></td>
+                      <td class="cell" data-row="6" data-col="2"></td>
+                      <td class="cell" data-row="6" data-col="3"></td>
+                      <td class="cell" data-row="6" data-col="4"></td>
+                      <td class="cell" data-row="6" data-col="5"></td>
+                      <td class="cell" data-row="6" data-col="6"></td>
+                      <td class="cell" data-row="6" data-col="7"></td>
+                      <td class="cell" data-row="6" data-col="8"></td>
+                      <td class="cell" data-row="6" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>H</td>
+                      <td class="cell" data-row="7" data-col="0"></td>
+                      <td class="cell" data-row="7" data-col="1"></td>
+                      <td class="cell" data-row="7" data-col="2"></td>
+                      <td class="cell" data-row="7" data-col="3"></td>
+                      <td class="cell" data-row="7" data-col="4"></td>
+                      <td class="cell" data-row="7" data-col="5"></td>
+                      <td class="cell" data-row="7" data-col="6"></td>
+                      <td class="cell" data-row="7" data-col="7"></td>
+                      <td class="cell" data-row="7" data-col="8"></td>
+                      <td class="cell" data-row="7" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>I</td>
+                      <td class="cell" data-row="8" data-col="0"></td>
+                      <td class="cell" data-row="8" data-col="1"></td>
+                      <td class="cell" data-row="8" data-col="2"></td>
+                      <td class="cell" data-row="8" data-col="3"></td>
+                      <td class="cell" data-row="8" data-col="4"></td>
+                      <td class="cell" data-row="8" data-col="5"></td>
+                      <td class="cell" data-row="8" data-col="6"></td>
+                      <td class="cell" data-row="8" data-col="7"></td>
+                      <td class="cell" data-row="8" data-col="8"></td>
+                      <td class="cell" data-row="8" data-col="9"></td>
+                    </tr>
+                    <tr>
+                      <td>J</td>
+                      <td class="cell" data-row="9" data-col="0"></td>
+                      <td class="cell" data-row="9" data-col="1"></td>
+                      <td class="cell" data-row="9" data-col="2"></td>
+                      <td class="cell" data-row="9" data-col="3"></td>
+                      <td class="cell" data-row="9" data-col="4"></td>
+                      <td class="cell" data-row="9" data-col="5"></td>
+                      <td class="cell" data-row="9" data-col="6"></td>
+                      <td class="cell" data-row="9" data-col="7"></td>
+                      <td class="cell" data-row="9" data-col="8"></td>
+                      <td class="cell" data-row="9" data-col="9"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="/script.js"></script>
+</html>
