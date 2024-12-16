@@ -1,14 +1,13 @@
 'use strict';
 
 class PlayerGrid {
-    constructor() {
+    constructor(sizeTwo, sizeThree, sizeFour, sizeFive) {
         this.grid = [];
         this.boatSize = 2;
         this.boatId = 3;
         this.horizontal = true;
-        this.initGrid();
-        this.setEventsRadio();
-        this.setEventsTable();
+        this.maxSizes = [sizeTwo, sizeThree, sizeFour, sizeFive];
+        this.run();
     }
 
     initGrid() {
@@ -27,6 +26,35 @@ class PlayerGrid {
                 console.log('Boat size:', this.boatSize);
             });
         });
+    }
+
+    changeSizesState() {
+        let checkNext = false;
+        let disSubmit = false;
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            if (this.maxSizes[radio.value - 2] === 0) {
+                if (!radio.disabled) {
+                    radio.disabled = true;
+                    radio.checked = false;
+                    checkNext = true;
+                    this.boatSize = 0;    
+                }
+            }
+            else {
+                radio.disabled = false;
+                disSubmit = true;
+                if (checkNext) {
+                    radio.checked = true;
+                    this.boatSize = parseInt(radio.value);
+                    checkNext = false;
+                }
+            }
+        });
+        if (disSubmit) {
+            document.querySelector('input[type="button"]').disabled = true;
+            return;
+        }
+        document.querySelector('input[type="button"]').disabled = false;
     }
 
     resetRadius(elDiv) {
@@ -70,20 +98,27 @@ class PlayerGrid {
     }
 
     removeBoat(boatId) {
+        let size = 0;
+        console.log('Removing boat:', boatId);
         //Remove boat from grid and refactor grid
         this.grid.forEach(row => {
             row.forEach((cell, index) => {
                 if (cell === boatId) {
                     row[index] = 0;
+                    size++;
                 }
                 if (cell > boatId) {
                     row[index]--;
                 }
             });
         });
+        //Increment back the max number of this boat's size
+        this.maxSizes[size - 2]++;
+        this.changeSizesState();        
+        //Decrement boatId and redraw the table
         this.boatId--;
-        //Remove boat from table
         this.updateTable();
+        console.log('Boat removed:', boatId);
     }
     
     setEventsTable() {
@@ -184,53 +219,59 @@ class PlayerGrid {
             });
             //Click event
             td.addEventListener('click', e => {
-                let x = e.target.cellIndex - 1;
-                let y = e.target.parentNode.rowIndex - 1;
+                let x = e.target.cellIndex;
+                let y = e.target.parentNode.rowIndex;
                 //For horizontal direction
                 if (this.horizontal) {
                     //Check if the boat overlaps with another boat
-                    for (let i = x; i < x + this.boatSize; i++) {
-                        if (this.grid[y][i] !== 0) {
-                            //If there's an overlap, remove the boat
-                            this.removeBoat(this.grid[y][i]);
-                            return;
-                        }
+                    if (e.target.parentNode.children[x].children[0].style.backgroundColor === 'lightcoral') {
+                        console.log('Overlap');
+                        this.removeBoat(this.grid[y - 1][x - 1]);
+                        return;
                     }
                     //If the boat is out of bounds, return
-                    if (x + this.boatSize > 10) {
+                    if (x + this.boatSize > 11) {
                         console.log('Out of bounds');
                         return;
                     }
                     //If not, add the boat to the grid
                     for (let i = x; i < x + this.boatSize; i++) {
-                        this.grid[y][i] = this.boatId;
+                        this.grid[y - 1][i - 1] = this.boatId;
                     }
                 //For vertical direction
                 } else {
                     //Check if the boat overlaps with another boat
-                    for (let i = y; i < y + this.boatSize; i++) {
-                        if (this.grid[i][x] !== 0) {
-                            //If there's an overlap, remove the boat
-                            this.removeBoat(this.grid[i][x]);
-                            return;
-                        }
+                    if (e.target.parentNode.parentNode.children[y].children[x].children[0].style.backgroundColor === 'lightcoral') {
+                        console.log('Overlap');
+                        this.removeBoat(this.grid[y - 1][x - 1]);
+                        return;
                     }
                     //If the boat is out of bounds, return
-                    if (y + this.boatSize > 10) {
+                    if (y + this.boatSize > 11) {
                         console.log('Out of bounds');
                         return;
                     }
                     //If not, add the boat to the grid
                     for (let i = y; i < y + this.boatSize; i++) {
-                        this.grid[i][x] = this.boatId;
+                        this.grid[i - 1][x - 1] = this.boatId;
                     }
                 }
+                //Decrement the max number of this boat's size
+                this.maxSizes[this.boatSize - 2]--;
+                this.changeSizesState();
                 //Increment boatId and redraw the table
                 this.boatId++;
                 this.updateTable();
             });
         });
     }
+
+    run() {
+        this.initGrid();
+        this.changeSizesState();
+        this.setEventsRadio();
+        this.setEventsTable();
+    }
 }
 
-let playerGrid = new PlayerGrid();
+let playerGrid = new PlayerGrid(2, 2, 1, 2);
