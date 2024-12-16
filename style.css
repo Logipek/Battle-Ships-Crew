@@ -152,34 +152,31 @@
   color: #333;
 }
 
-.selection-bateau p {
-  text-align: center;
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  color: #555;
-}
-
 .classes {
   display: flex;
-  flex-wrap: wrap; /* Permet le retour à la ligne */
+  flex-wrap: wrap;
   gap: 10px;
-  justify-content: center; /* Centrage horizontal */
+  justify-content: center;
 }
 
 .bateau {
   text-align: center;
-  width: 45%; /* Assure que deux bateaux tiennent sur une ligne */
+  width: 45%; /* Ajuste la largeur pour deux éléments par ligne */
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 8px;
   transition: transform 0.3s, border-color 0.3s;
 }
 
+.bateau input[type="radio"] {
+  display: none; /* Cache les boutons radio */
+}
+
 .bateau img {
   width: auto;
-  height: 100px; /* Taille uniforme pour toutes les images */
-  max-width: 100%; /* Préserve le ratio d'aspect */
-  object-fit: contain; /* Ajuste les dimensions pour s'adapter à l'espace */
+  height: 100px;
+  max-width: 100%;
+  object-fit: contain;
   border-radius: 6px;
 }
 
@@ -189,7 +186,17 @@
   color: #333;
 }
 
+/* Styles lorsqu'un bouton est sélectionné */
+.bateau input[type="radio"]:checked + img {
+  border: 3px solid #0078d7;
+  border-radius: 8px;
+}
+
+.bateau input[type="radio"]:checked + img + p {
+  font-weight: bold;
+  color: #0078d7;
+}
+
 .bateau:hover {
-  transform: scale(1.1);
-  border-color: #0078d7;
+  transform: scale(1.05);
 }
