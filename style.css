@@ -200,3 +200,17 @@
 .bateau:hover {
   transform: scale(1.05);
 }
+
+.btn-valider {
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.btn-valider:hover {
+  background-color: #0056b3;
+}
