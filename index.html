@@ -3,182 +3,75 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naval Brawl - Score</title>
-    <link rel="stylesheet" href="./style.css">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-
-      .score-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        width: 90%;
-        max-width: 800px;
-      }
-
-      .title h1 {
-        text-align: center;
-        font-size: 2.5em;
-        margin-bottom: 20px;
-        color: #333;
-      }
-
-      .score-board {
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-        border-top: 2px solid #ccc;
-        margin-top: 20px;
-      }
-
-      .score-player {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .score-player h3 {
-        margin: 5px 0;
-        font-size: 1.5em;
-        color: #333;
-      }
-
-      .score-player p {
-        font-size: 1.2em;
-        color: #666;
-        margin: 0;
-      }
-
-      .winner {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-
-      .loser {
-        background-color: #f44336;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-
-      .result-summary {
-        text-align: center;
-        margin-top: 40px;
-        font-size: 1.5em;
-        color: #333;
-      }
-
-      .result-summary span {
-        font-weight: bold;
-      }
-
-      .btn-restart {
-        display: block;
-        width: 200px;
-        margin: 20px auto;
-        padding: 10px;
-        background-color: #2196F3;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        font-size: 1.2em;
-        cursor: pointer;
-      }
-
-      .btn-restart:hover {
-        background-color: #1976D2;
-      }
-    </style>
+    <title>Menu | Naval Brawl</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="score-container">
-      <div class="title">
-        <h1>Naval Brawl - Bateaux Restants</h1>
-      </div>
+    <main>
+      <section class="main">
+        <section class="left">
+          <div class="master-illustration">
+            <img class="svg-army" src="css/img/airplane.svg"
+              alt="Master Illustration">
+          </div>
+        </section>
+        <section class="right">
+          <div class="content-right">
+            <h1>Naval Brawl</h1>
+            <p>Voulez-vous créer une nouvelle partie ? <br>
+              Cliquez sur le bouton ci-dessous pour démarrer une nouvelle partie
+              de Battle Ships. </p>
+            <div class="button-section">
+              <div class="form-create" id="create-game-btn">
+                <button>Create Room</button>
+                <i class="ph ph-plus"></i>
+              </div>
+              <div class="form-join" id="join">
+                <button>Join</button>
+                <i class="ph ph-sword"></i>
+              </div>
+            </div>
 
-      <div class="score-board">
-        <div class="score-player">
-          <h3>Joueur 1</h3>
-          <p id="battleships1">Bateaux restants: 3</p>
-          <p id="winner1" style="color: white; margin-top: 20px;" class="winner">Gagnant</p>
-        </div>
+            <!-- section creation de partie -->
 
-        <div class="score-player">
-          <h3>Joueur 2</h3>
-          <p id="battleships2">Bateaux restants: 0</p>
-          <p id="winner2" style="color: white; margin-top: 20px;" class="loser">Perdant</p>
-        </div>
-      </div>
+            <div id="create-game-section" style="display: none;"
+              class="buttons">
+              <form id="form-create">
+                <hr class="separator">
+                <h3 href="#" class="play">Création d'une partie</h3>
+                <div class="buttom-create">
+                  <input class="create-player" id="create-pseudo" type="text"
+                    placeholder="Votre pseudo" required>
+                  <a href="#"><button><i class="ph ph-plus"></i></button></a>
+                </div>
+              </form>
+            </div>
 
-      <div class="result-summary">
-        <p id="summary">Félicitations, <span id="winner-name">Joueur 1</span> remporte la partie !</p>
-      </div>
-
-      <button class="btn-restart" id="restart-btn">Redémarrer la partie</button>
-    </div>
-
-    <script>
-      // Variables de bateaux restants
-      let battleships1 = 3;
-      let battleships2 = 0;
-
-      // Élément HTML pour les bateaux restants
-      const battleships1Elem = document.getElementById('battleships1');
-      const battleships2Elem = document.getElementById('battleships2');
-      const winner1Elem = document.getElementById('winner1');
-      const winner2Elem = document.getElementById('winner2');
-      const winnerNameElem = document.getElementById('winner-name');
-      const summaryElem = document.getElementById('summary');
-
-      // Fonction pour mettre à jour les informations des bateaux restants
-      function updateBateauxRestants() {
-        battleships1Elem.textContent = `Bateaux restants: ${battleships1}`;
-        battleships2Elem.textContent = `Bateaux restants: ${battleships2}`;
-
-        if (battleships1 > battleships2) {
-          winner1Elem.textContent = 'Gagnant';
-          winner2Elem.textContent = 'Perdant';
-          winner1Elem.classList.add('winner');
-          winner2Elem.classList.add('loser');
-          winnerNameElem.textContent = 'Joueur 1';
-        } else {
-          winner1Elem.textContent = 'Perdant';
-          winner2Elem.textContent = 'Gagnant';
-          winner1Elem.classList.add('loser');
-          winner2Elem.classList.add('winner');
-          winnerNameElem.textContent = 'Joueur 2';
-        }
-      }
-
-      // Ajouter un événement pour redémarrer la partie
-      const restartBtn = document.getElementById('restart-btn');
-      restartBtn.addEventListener('click', function () {
-        battleships1 = 5;
-        battleships2 = 5;
-
-        updateBateauxRestants();
-      });
-
-      // Appeler la fonction pour initialiser l'affichage des bateaux restants
-      updateBateauxRestants();
-    </script>
-  </body>
-</html>
+            <!-- section join de partie -->
+            <div id="join-party-section" style="display: none;"
+              class="buttons">
+              <form id="form-join">
+                <hr class="separator">
+                <h3 href="#" class="play">Création d'une partie</h3>
+                <div class="buttom-create">
+                  <input class="create-player" id="join-pseudo" type="text"
+                    placeholder="Votre pseudo" required>
+                  <input class="create-player" id="join-room" type="text"
+                    placeholder="ID de la room" maxlength="6" minlength="6"
+                    required>
+                  <a href="#"><button><i class="ph ph-plus"></i></button></a>
+                </div>
+              </form>
+            </div>
+            <div class="corner">
+              <a href="https://github.com/">Github</a>
+              <i class="ph ph-github-logo"></i>
+            </div>
+          </section>
+        </section>
+      </main>
+    </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="index.js"></script>
+  </html>

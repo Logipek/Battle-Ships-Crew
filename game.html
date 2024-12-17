@@ -6,54 +6,68 @@
     <title>Naval Brawl</title>
     <link rel="stylesheet" href="./style.css">
     <style>
-      .grid-container {
+     .right {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.content-right h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #343a40;
+}
+
+.grid-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 .battleship-grid {
   border-collapse: collapse;
-  background: #fff;
+  width: 100%;
+  max-width: 500px;
 }
 
 .battleship-grid th,
 .battleship-grid td {
-  border: 1px solid #999;
+  text-align: center;
   width: 40px;
   height: 40px;
-  text-align: center;
-  vertical-align: middle;
+  border: 1px solid #dee2e6;
 }
 
-.battleship-grid th:first-child,
-.battleship-grid td:first-child {
-  background: #f0f0f0;
-  font-weight: bold;
+.battleship-grid th {
+  background-color: #6c757d;
+  color: #fff;
 }
 
-.battleship-grid thead th {
-  background: #f0f0f0;
-}
-
-.cell {
-  background: lightskyblue;
+.battleship-grid td.cell {
+  background-color: #e9ecef;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  height: 100vh;
+.battleship-grid td.cell:hover {
+  background-color: #adb5bd;
 }
 
-.content-right {
-  width: 100%;
-  max-width: 600px;
+.battleship-grid td.cell.attacked {
+  background-color: #ff6b6b; /* Case attaquée */
 }
+
+.battleship-grid td.cell.hit {
+  background-color: #20c997; /* Case touchée */
+}
+
+.battleship-grid td.cell.miss {
+  background-color: #6c757d; /* Case manquée */
+}
+
+
     </style>
   </head>
   <body>
@@ -97,266 +111,60 @@
         </section>
         <section class="right">
           <div class="content-right">
-            <h2>Grille de jeu</h2>
+            <h2>Grille de Jeu</h2>
             <div class="grid-container">
-              <div class="grid-container">
-                <table class="battleship-grid">
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>1</th>
-                      <th>2</th>
-                      <th>3</th>
-                      <th>4</th>
-                      <th>5</th>
-                      <th>6</th>
-                      <th>7</th>
-                      <th>8</th>
-                      <th>9</th>
-                      <th>10</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>A</td>
-                      <td class="cell" data-row="0" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="0" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>B</td>
-                      <td class="cell" data-row="1" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="1" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>C</td>
-                      <td class="cell" data-row="2" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="2" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>D</td>
-                      <td class="cell" data-row="3" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="3" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>E</td>
-                      <td class="cell" data-row="4" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="4" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>F</td>
-                      <td class="cell" data-row="5" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="5" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>G</td>
-                      <td class="cell" data-row="6" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="6" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>H</td>
-                      <td class="cell" data-row="7" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="7" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>I</td>
-                      <td class="cell" data-row="8" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="8" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                    <tr>
-                      <td>J</td>
-                      <td class="cell" data-row="9" data-col="0"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="1"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="2"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="3"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="4"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="5"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="6"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="7"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="8"><div
-                          class="cell_div"></div></td>
-                      <td class="cell" data-row="9" data-col="9"><div
-                          class="cell_div"></div></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              <table class="battleship-grid"
+                aria-label="Grille de bataille navale">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                    <th>8</th>
+                    <th>9</th>
+                    <th>10</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Exemple de ligne -->
+                  <tr>
+                    <td>A</td>
+                    <td class="cell" data-row="0" data-col="0"
+                      aria-label="A1"></td>
+                    <td class="cell" data-row="0" data-col="1"
+                      aria-label="A2"></td>
+                    <td class="cell" data-row="0" data-col="2"
+                      aria-label="A3"></td>
+                    <td class="cell" data-row="0" data-col="3"
+                      aria-label="A4"></td>
+                    <td class="cell" data-row="0" data-col="4"
+                      aria-label="A5"></td>
+                    <td class="cell" data-row="0" data-col="5"
+                      aria-label="A6"></td>
+                    <td class="cell" data-row="0" data-col="6"
+                      aria-label="A7"></td>
+                    <td class="cell" data-row="0" data-col="7"
+                      aria-label="A8"></td>
+                    <td class="cell" data-row="0" data-col="8"
+                      aria-label="A9"></td>
+                    <td class="cell" data-row="0" data-col="9"
+                      aria-label="A10"></td>
+                  </tr>
+                  <!-- Répéter pour chaque ligne -->
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
-      </section>
-    </main>
-  </body>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <script src="/test_script.js"></script>
-</html>
+
+      </main>
+    </body>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="/test_script.js"></script>
+  </html>

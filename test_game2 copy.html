@@ -1,0 +1,881 @@
+a<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naval Brawl</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body></body>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .grid-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+    }
+
+    .battleship-grid {
+      border-collapse: collapse;
+      background: #fff;
+    }
+
+    .battleship-grid th,
+    .battleship-grid td {
+      border: 1px solid #999;
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .battleship-grid th:first-child,
+    .battleship-grid td:first-child {
+      background: #f0f0f0;
+      font-weight: bold;
+    }
+
+    .battleship-grid thead th {
+      background: #f0f0f0;
+    }
+
+    .p_cell {
+      background: rgb(212, 228, 237);
+    }
+
+    .o_cell {
+      background: rgb(212, 228, 237);
+    }
+
+    .o_cell {
+      cursor: pointer;
+    }
+
+    .o_cell_div {
+      width: 100%;
+      height: 100%;
+    }
+
+    .right,
+    .left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      height: 100vh;
+    }
+
+    .content-right {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .p_cell_div {
+      height: 40px;
+      width: 40px;
+      position: relative;
+    }
+
+    .p_cell_div:after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 30px;
+      color: red;
+      line-height: 37px;
+      text-align: center;
+    }
+
+    .title h1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      text-decoration: underline;
+    }
+
+    .instruction {
+      margin-top: 50px;
+      border: 1px solid #999;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .instruction h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .instruction p {
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .title-adv h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: #343a40;
+      text-decoration: underline;
+    }
+
+    .grid-container th {
+      background-color: #6c757d;
+      height: 10px;
+      width: 40px;
+    }
+
+    .turn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      border: 1px solid #999;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+    }
+  </style>
+  </head>
+  <body>
+    <main>
+      <section class="main">
+        <section class="left">
+          <div class="main-grid">
+            <div class="title">
+              <h1>Votre grille</h1>
+            </div>
+            <table class="battleship-grid player-grid">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>5</th>
+                  <th>6</th>
+                  <th>7</th>
+                  <th>8</th>
+                  <th>9</th>
+                  <th>10</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A</td>
+                  <td class="p_cell" data-row="0" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="0" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>B</td>
+                  <td class="p_cell" data-row="1" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="1" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td class="p_cell" data-row="2" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="2" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>D</td>
+                  <td class="p_cell" data-row="3" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="3" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>E</td>
+                  <td class="p_cell" data-row="4" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="4" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td class="p_cell" data-row="5" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="5" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>G</td>
+                  <td class="p_cell" data-row="6" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="6" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>H</td>
+                  <td class="p_cell" data-row="7" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="7" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>I</td>
+                  <td class="p_cell" data-row="8" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="8" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>J</td>
+                  <td class="p_cell" data-row="9" data-col="0">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="1">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="2">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="3">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="4">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="5">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="6">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="7">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="8">
+                    <div class="p_cell_div"></div>
+                  </td>
+                  <td class="p_cell" data-row="9" data-col="9">
+                    <div class="p_cell_div"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="instruction">
+            <h2>Instructions</h2>
+            <p>Placez vos bateaux sur la grille de jeu en cliquant sur les cases de la grille. Vous pouvez placer des bateaux de 5, 4, 3, 3 et 2 cases. Vous ne pouvez pas placer de bateaux en diagonale. <br> Si votre sélection est jaune, c'est que le bateau est en cours d'être coulé. Si la sélection est rouge, alors le bateau est coulé . </p>
+          </div>
+        </section>
+        <section class="right">
+          <div class="content-right">
+            <div class="title-adv">
+              <h2>Grille de l'adversaire</h2>
+            </div>
+            <div class="grid-container">
+              <div class="grid-container">
+                <table class="battleship-grid opponent-grid">
+                  <thead>
+                    <tr>
+                      <div class="rounded-th"></div>
+                      <th></th>
+                      <th>1</th>
+                      <th>2</th>
+                      <th>3</th>
+                      <th>4</th>
+                      <th>5</th>
+                      <th>6</th>
+                      <th>7</th>
+                      <th>8</th>
+                      <th>9</th>
+                      <th>10</th>
+              </div>
+              </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>A</td>
+                  <td class="o_cell" data-row="0" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="0" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>B</td>
+                  <td class="o_cell" data-row="1" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="1" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>C</td>
+                  <td class="o_cell" data-row="2" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="2" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>D</td>
+                  <td class="o_cell" data-row="3" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="3" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>E</td>
+                  <td class="o_cell" data-row="4" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="4" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>F</td>
+                  <td class="o_cell" data-row="5" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="5" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>G</td>
+                  <td class="o_cell" data-row="6" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="6" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>H</td>
+                  <td class="o_cell" data-row="7" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="7" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>I</td>
+                  <td class="o_cell" data-row="8" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="8" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>J</td>
+                  <td class="o_cell" data-row="9" data-col="0">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="1">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="2">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="3">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="4">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="5">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="6">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="7">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="8">
+                    <div class="o_cell_div"></div>
+                  </td>
+                  <td class="o_cell" data-row="9" data-col="9">
+                    <div class="o_cell_div"></div>
+                  </td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+          </div>
+          <div class="turn">
+            <input type="button" style="color: red; text-decoration: underline;" value="Tour de l'adversaire" id="turn" class="btn">
+            <input type="button" style="color: green; text-decoration: underline;" value="C'est votre tour" id="turn" class="btn">
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="test_game2.js"></script>
+</html>
