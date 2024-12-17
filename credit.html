@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crédits</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .credits-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 800px;
+      }
+
+      .credits-header {
+        text-align: center;
+      }
+
+      .credits-header h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .section-title {
+        font-size: 1.8em;
+        margin-top: 30px;
+        color: #333;
+        text-decoration: underline;
+      }
+
+      .credits-list {
+        list-style: none;
+        padding: 0;
+        font-size: 1.2em;
+        color: #555;
+      }
+
+      .credits-list li {
+        margin-bottom: 10px;
+      }
+
+      .credits-list a {
+        color: #2196F3;
+        text-decoration: none;
+      }
+
+      .credits-list a:hover {
+        text-decoration: underline;
+      }
+
+      .back-btn {
+        display: block;
+        width: 200px;
+        margin: 40px auto;
+        padding: 10px;
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      .back-btn:hover {
+        background-color: #1976D2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="credits-container">
+      <div class="credits-header">
+        <h1>Crédits du Projet</h1>
+      </div>
+
+      <div class="credits-body">
+        <p>Merci à toutes les personnes et outils qui ont contribué à la
+          réalisation de ce projet. Voici les crédits :</p>
+
+        <div class="section-title">Développeurs :</div>
+        <ul class="credits-list">
+          <li>Développeur Back-end : <strong>Julien Mouzet
+            </strong></li>
+          <li>Développeur Front-end : <strong>Hugo Damion</strong></li>
+        </ul>
+
+        <div class="section-title">Outils Utilisés :</div>
+        <ul class="credits-list">
+          <li>HTML, CSS, JavaScript, PHP</li>
+          <li>Framework : <strong>Aucun</strong>
+          </li>
+          <li>Éditeur de code : <strong>Visual Studio Code</strong> et
+            <strong>JetBrain</strong></li>
+        </ul>
+
+        <div class="section-title">Icones et Ressources :</div>
+        <ul class="credits-list">
+          <li>Icônes par <a href="https://phosphoricons.com/"
+              target="_blank">Phosphor</a></li>
+          <li>Images libres de droits par <a href="https://unsplash.com"
+              target="_blank">Unsplash</a></li>
+        </ul>
+
+        <div class="section-title">Durée de réalisation :</div>
+        <ul class="credits-list">
+          <li>La durée de réalisation était de 4 jours </li>
+        </ul>
+      </div>
+
+      <button class="back-btn" onclick="window.history.back()">Retour</button>
+    </div>
+  </body>
+</html>
