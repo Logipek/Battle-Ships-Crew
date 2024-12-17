@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naval Brawl</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet">
+    <style>
+      /* Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f4f7fa;
+      }
+
+      .container {
+        display: flex;
+        width: 900px;
+        height: 500px;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* Left Panel */
+      .left-panel {
+        width: 40%;
+        background-color: #e9f2ff;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-right: 1px solid #dbe6f5;
+      }
+
+      .left-panel h1 {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+      }
+
+      .players {
+        text-align: center;
+      }
+
+      .players h2 {
+        font-size: 18px;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 3rem;
+        color: #555;
+        text-decoration: underline;
+      }
+
+      .players ul {
+        list-style: none;
+      }
+
+      .players li {
+        font-size: 16px;
+        font-weight: 400;
+        margin: 5px 0;
+        color: #444;
+      }
+
+      .invite-link {
+        text-align: center;
+        background-color: #ffffff;
+        border: 1px solid #dbe6f5;
+        border-radius: 8px;
+        padding: 10px;
+        color: #333;
+        font-size: 14px;
+        font-weight: 500;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .invite-link button {
+        margin-top: 10px;
+        padding: 8px 16px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .invite-link button:hover {
+        background-color: #357ab8;
+      }
+
+      /* Right Panel */
+      .right-panel {
+        width: 60%;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: #ffffff;
+      }
+
+      .ship-info p {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 10px 0;
+        color: #333;
+      }
+
+      .ship-info span {
+        display: inline-block;
+        background-color: #f4f7fa;
+        border: 1px solid #dbe6f5;
+        border-radius: 4px;
+        width: 40px;
+        text-align: center;
+        padding: 5px;
+        font-weight: 700;
+        color: #444;
+      }
+
+      .start-button button {
+        width: 100%;
+        padding: 12px;
+        background-color: #4a90e2;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .start-button button:hover {
+        background-color: #357ab8;
+      }
+
+      /* Popup */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 50px;
+        border-radius: 10px;
+        color: white;
+        font-size: 18px;
+      }
+
+      .popup.active {
+        display: block;
+      }
+
+      .popup button {
+        background-color: #357ab8;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        transition: margin 0.3s;
+        margin-top: 20px;
+      }
+
+      .popup button:hover {
+        margin-top: 20px;
+        text-align: center;
+        background-color: #2a6497;
+      }
+
+      .ship-info button{
+        margin-right: 10px;
+        padding: 10px;
+        background-color: #7eb1ed;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin: 10px 0;
+      }
+
+      .ship-info button:hover{
+        background-color: #357ab8;
+      }
+
+      .ship-info span{
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Panel -->
+      <div class="left-panel">
+        <h1>Naval Brawl</h1>
+        <div class="players">
+          <h2>Joueurs :</h2>
+          <ul>
+            <li>Hugo (vous)</li>
+            <li>Louis</li>
+          </ul>
+        </div>
+        <div class="invite-link">
+          <p>Lien d'invitation</p>
+          <p id="invite-code">13H103JF08FJA</p>
+          <button id="copy-button">Copier le lien</button>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <div class="ship-info">
+          <p>Nombre de croiseur total : <span id="cruiser-count">2</span><button
+              onclick="updateShipCount('cruiser', 1)">Ajouter un
+              croiseur</button></p>
+          <p>Nombre de sous-marin total : <span
+              id="submarine-count">4</span><button
+              onclick="updateShipCount('submarine', 1)">Ajouter un
+              sous-marin</button></p>
+          <p>Nombre de torpille total : <span id="torpedo-count">1</span><button
+              onclick="updateShipCount('torpedo', 1)">Ajouter une
+              torpille</button></p>
+          <p>Nombre de porte-avion total : <span
+              id="aircraft-carrier-count">1</span> <button
+              onclick="updateShipCount('aircraft-carrier', 1)">Ajouter un
+              porte-avion</button></p>
+        </div>
+        <div class="start-button">
+          <button>Lancer la partie</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup for copying -->
+    <div class="popup" id="popup">
+      <p>Lien copié avec succès!</p>
+      <button onclick="closePopup()">Fermer</button>
+    </div>
+
+    <script>
+      // Fonction pour mettre à jour les compteurs de bateaux
+      function updateShipCount(type, value) {
+        const shipCounts = {
+          cruiser: 'cruiser-count',
+          submarine: 'submarine-count',
+          torpedo: 'torpedo-count',
+          'aircraft-carrier': 'aircraft-carrier-count'
+        };
+
+        const currentCount = parseInt(document.getElementById(shipCounts[type]).innerText);
+        document.getElementById(shipCounts[type]).innerText = currentCount + value;
+      }
+
+      // Fonction pour copier le lien d'invitation
+      function copyInvite() {
+        const inviteText = document.getElementById('invite-code').innerText;
+        const textArea = document.createElement('textarea');
+        textArea.value = inviteText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        showPopup();
+      }
+
+      // Fonction pour afficher le popup
+      function showPopup() {
+        document.getElementById('popup').classList.add('active');
+      }
+
+      // Fonction pour fermer le popup
+      function closePopup() {
+        document.getElementById('popup').classList.remove('active');
+      }
+
+      // Attacher la fonction copyInvite au bouton "Copier le lien"
+      document.getElementById('copy-button').addEventListener('click', copyInvite);
+    </script>
+  </body>
+</html>
