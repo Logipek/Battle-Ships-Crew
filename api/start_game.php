@@ -18,8 +18,10 @@ if (!isset($_GET['room'])) {
     //Generate a unique room code
     do {
         $code = strtoupper(bin2hex(random_bytes(3)));
+
         $stmt = $conn->prepare("SELECT COUNT(*) FROM game_list WHERE code = ?");
         $stmt->execute([$code]);
+
         $exists = $stmt->fetchColumn() > 0;
     } while ($exists);
 
