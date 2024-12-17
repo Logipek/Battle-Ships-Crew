@@ -1,10 +1,19 @@
 <?php
 
-//Temp
-$code = 'a44506';
-$uid = 'c6ad1bfde2218b7d4b9bb764f6bbe950';
-$col = 2;
-$row = 4;
+header('Content-Type: application/json');
+
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($data['code']) || !isset($data['uid']) || !isset($data['col']) || !isset($data['row'])) {
+    $error = "Pas de données";
+    echo json_encode(['success' => false, 'error' => $error]);
+    exit();
+}
+
+$code = htmlspecialchars(strtoupper($data['code']));
+$uid = htmlspecialchars($data['uid']);
+$col = htmlspecialchars($data['col']);
+$row = htmlspecialchars($data['row']);
 
 require_once 'config.php';
 
@@ -17,8 +26,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$result) {
     $error = "Partie non trouvée";
-    //echo json_encode(['error' => $error]);
-    echo $error;
+    echo json_encode(['return' => -1, 'error' => $error]);
     exit();
 }
 
@@ -35,8 +43,7 @@ $stmt->execute([$uid, $code]);
 
 if ($stmt->fetchColumn() == 0) {
     $error = "La partie n'a pas encore commencé";
-    //echo json_encode(['error' => $error]);
-    echo $error;
+    echo json_encode(['return' => -1, 'error' => $error]);
     exit();
 }
 
@@ -49,33 +56,29 @@ $stmt->execute([$code]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 //If it's the first input
-if (!$result) {
-    if ($player == 1 && !$player_1_starts) {
-        $error = "Ce n'est pas encore à votre tour";
-        //echo json_encode(['error' => $error]);
-        echo $error;
-        exit();
-    }
-    if ($player == 2 && $player_1_starts) {
-        $error = "Ce n'est pas encore à votre tour";
-        //echo json_encode(['error' => $error]);
-        echo $error;
-        exit();
-    }
-} else {
-    if ($uid == $result['uid'] && $result['hit'] == 0) {
-        $error = "Ce n'est pas encore à votre tour";
-        //echo json_encode(['error' => $error]);
-        echo $error;
-        exit();
-    }
-    if ($uid != $result['uid'] && $result['hit'] == 1) {
-        $error = "Ce n'est pas encore à votre tour";
-        //echo json_encode(['error' => $error]);
-        echo $error;
-        exit();
-    }
-}
+// if (!$result) {
+//     if ($player == 1 && !$player_1_starts) {
+//         $error = "Ce n'est pas encore à votre tour";
+//         echo json_encode(['return' => -1, 'error' => $error]);
+//         exit();
+//     }
+//     if ($player == 2 && $player_1_starts) {
+//         $error = "Ce n'est pas encore à votre tour";
+//         echo json_encode(['return' => -1, 'error' => $error]);
+//         exit();
+//     }
+// } else {
+//     if ($uid == $result['uid'] && $result['hit'] == 0) {
+//         $error = "Ce n'est pas encore à votre tour";
+//         echo json_encode(['return' => -1, 'error' => $error]);
+//         exit();
+//     }
+//     if ($uid != $result['uid'] && $result['hit'] == 1) {
+//         $error = "Ce n'est pas encore à votre tour";
+//         echo json_encode(['return' => -1, 'error' => $error]);
+//         exit();
+//     }
+// }
 
 //Check if this input does not exist
 $stmt = $conn->prepare("SELECT COUNT(*) FROM game_inputs i
@@ -84,8 +87,7 @@ $stmt = $conn->prepare("SELECT COUNT(*) FROM game_inputs i
 $stmt->execute([$id_game, $uid, $col, $row]);
 if ($stmt->fetchColumn() > 0) {
     $error = "Cette case est déjà prise";
-    //echo json_encode(['error' => $error]);
-    echo $error;
+    echo json_encode(['return' => -1, 'error' => $error]);
     exit();
 }
 
@@ -95,7 +97,7 @@ $stmt = $conn->prepare("INSERT INTO game_inputs (id_game, id_player, col, row)
 $stmt->execute([$id_game, $col, $row, $uid]);
 
 //Get the timestamp
-$stmt = $conn->prepare("SELECT timestamp FROM game_inputs i
+$stmt = $conn->prepare("SELECT i.timestamp FROM game_inputs i
                         INNER JOIN players p ON i.id_player = p.id_player
                         WHERE id_game = ? AND uid = ? AND col = ? AND row = ?");
 $stmt->execute([$id_game, $uid, $col, $row]);
@@ -112,8 +114,7 @@ $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$result) {
     $return = 0;
-    //echo json_encode(['return' => $return, 'timestamp' => $timestamp]);
-    echo $return;
+    echo json_encode(['return' => $return, 'timestamp' => $timestamp]);
     exit();
 }
 
@@ -132,24 +133,11 @@ $stmt = $conn->prepare("UPDATE game_inputs i
 $stmt->execute([$id_game, $uid, $col, $row]);
 
 //Check if the boat is sunk
-echo $id_game . " " . $uid . " " . $boat_id . "\n";
 $stmt = $conn->prepare("SELECT COUNT(*) FROM game_board b
                         INNER JOIN players p ON b.id_player = p.id_player
                         WHERE id_game = ? AND uid != ? AND boat_id = ? AND hit = 0");
 $stmt->execute([$id_game, $uid, $boat_id]);
 if ($stmt->fetchColumn() == 0) {
-
-    //Check if all boats are sunk
-    $stmt = $conn->prepare("SELECT COUNT(*) FROM game_board b
-                            INNER JOIN players p ON b.id_player = p.id_player
-                            WHERE id_game = ? AND uid != ? AND hit = 0");
-    $stmt->execute([$id_game, $uid]);
-    if ($stmt->fetchColumn() == 0) {
-        $return = 1;
-        //echo json_encode(['return' => $return, 'timestamp' => $timestamp]);
-        echo $return;
-        exit();
-    }
 
     //Return the boat position
     $stmt = $conn->prepare("SELECT col, row FROM game_board b
@@ -158,17 +146,24 @@ if ($stmt->fetchColumn() == 0) {
     $stmt->execute([$id_game, $uid, $boat_id]);
     $pos = [];
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $pos[] = ['col' => $row['col'], 'row' => $row['row']];
+        $pos[] = ['col' => (int)$row['col'], 'row' => (int)$row['row']];
     }
 
-    $return = $boat_id;
-    //echo json_encode(['return' => $return, 'pos' => $pos, 'timestamp' => $timestamp]);
-    echo $return;
-    print_r($pos);
+    //Check if all boats are sunk
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM game_board b
+                            INNER JOIN players p ON b.id_player = p.id_player
+                            WHERE id_game = ? AND uid != ? AND hit = 0");
+    $stmt->execute([$id_game, $uid]);
+    if ($stmt->fetchColumn() == 0) {
+        $return = 1;
+        echo json_encode(['return' => $return, 'pos' => $pos, 'timestamp' => $timestamp]);
+        exit();
+    }
+
+    $return = (int)$boat_id;
+    echo json_encode(['return' => $return, 'pos' => $pos, 'timestamp' => $timestamp]);
     exit();
 }
 
 $return = 2;
-//echo json_encode(['return' => $return, 'timestamp' => $timestamp]);
-echo $return;
-exit();
+echo json_encode(['return' => $return, 'timestamp' => $timestamp]);

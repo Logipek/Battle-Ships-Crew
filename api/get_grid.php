@@ -1,8 +1,15 @@
 <?php
 
-//Temp
-$code = 'a44506';
-$uid = 'c6ad1bfde2218b7d4b9bb764f6bbe950';
+$data = json_decode(file_get_contents('php://input'), true);
+
+if (!isset($data['code']) || !isset($data['uid'])) {
+    $error = "Pas de données";
+    json_encode(['success' => false, 'error' => $error]);
+    exit();
+}
+
+$code = htmlspecialchars(strtoupper($data['code']));
+$uid = htmlspecialchars($data['uid']);
 
 require_once 'config.php';
 

@@ -25,7 +25,7 @@ class PlayerGrid {
         for (let i = 0; i < this.board.length; i++) {
             col = this.board[i].col;
             row = this.board[i].row;
-            this.grid[col][row] = this.board[i].boat_id;
+            this.grid[row][col] = this.board[i].boat_id;
         }
 
         console.log(this.grid);
@@ -247,39 +247,110 @@ class OpponentGrid {
         }
     }
 
+    borderRadius(x, y, isHorizontal, start) {
+        let elDiv = document.querySelector(`td.o_cell[data-row="${x}"][data-col="${y}"]`);
+        if (isHorizontal) {
+            if (start) {
+                elDiv.children[0].style.borderTopLeftRadius = '50%';
+                elDiv.children[0].style.borderBottomLeftRadius = '50%';
+                return;
+            }
+            elDiv.children[0].style.borderTopRightRadius = '50%';
+            elDiv.children[0].style.borderBottomRightRadius = '50%';
+            return;
+        }
+        if (start) {
+            elDiv.children[0].style.borderTopLeftRadius = '50%';
+            elDiv.children[0].style.borderTopRightRadius = '50%';
+            return;
+        }
+        elDiv.children[0].style.borderBottomLeftRadius = '50%';
+        elDiv.children[0].style.borderBottomRightRadius = '50%';
+    }
+
+    boatSunk(boat_id, pos, win) {
+        let x;
+        let y;
+        let isHorizontal;
+
+        for (let i = 0; i < pos.length; i++) {
+            x = pos[i].row;
+            y = pos[i].col;
+            this.grid[x][y] = boat_id;
+            //Identify direction
+            if (i === 0) {
+                if (pos[i].row === pos[i + 1].row) {
+                    //Horizontal
+                    isHorizontal = true;
+                } else {
+                    //Vertical
+                    isHorizontal = false;
+                }
+                this.borderRadius(x, y, isHorizontal, true);
+            } else if (i === pos.length - 1) {
+                this.borderRadius(x, y, isHorizontal, false);
+            }
+        }
+        this.render(win);
+    }
+
     async setEventsTable() {
         document.querySelectorAll('td.o_cell').forEach(td => {
             td.addEventListener('click', async () => {
-                const data = {
+                const input = {
                     code: this.roomCode,
                     uid: this.uid,
                     row: parseInt(td.getAttribute('data-row')),
                     col: parseInt(td.getAttribute('data-col')),
                 }
+                console.log(input);
                 await fetch(`https://navalbrawl.jmouzet.fr/api/send_input.php`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify(input),
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (!data.success) {
-                        alert(data.error);
-                    } else {
-                        if (data.hit) {
-                            td.child[0].style.backgroundColor = 'gold';
-                        } else {
-                            td.child[0].style.backgroundColor = '';
-                        }
+                    console.log(data);
+                    switch (data.return) {
+                        case -1:
+                            //Error
+                            alert(data.error);
+                            break;
+                        case 0:
+                            //Miss
+                            td.children[0].style.backgroundColor = '';
+                            this.grid[input.row][input.col] = 0;
+                            break;
+                        case 1:
+                            //Win
+                            this.grid[input.row][input.col] = 2;
+                            this.boatSunk(2, data.pos, true);
+                            alert('You win!');
+                            break;
+                        case 2:
+                            //Hit
+                            td.children[0].style.backgroundColor = 'gold';
+                            this.grid[input.row][input.col] = 2;
+                            break;
+                        default:
+                            //Sunk
+                            this.boatSunk(data.return, data.pos, false);
+                            break;
                     }
+                    //Remove event listener
+                    td.removeEventListener('click', () => {});
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                 });
             });
         });
     }
 
-    render() {
+    render(win) {
         let x;
         let y;
 
@@ -287,17 +358,21 @@ class OpponentGrid {
             x = parseInt(td.getAttribute('data-row'));
             y = parseInt(td.getAttribute('data-col'));
             if (this.grid[x][y] === 0) {
-                td.children[0].style.backgroundColor = 'lightskyblue';
-            } else {
+                td.children[0].style.backgroundColor = '';
+            } else if (this.grid[x][y] === 1) {
                 td.children[0].style.backgroundColor = 'lightgray';
+            } else if (this.grid[x][y] === 2 && !win) {
+                td.children[0].style.backgroundColor = 'gold';
+            } else {
+                td.children[0].style.backgroundColor = 'red';
             }
             td.style.backgroundColor = 'lightskyblue';
         });
     }
 
-    run() {
+    async run() {
         this.initGrid();
-        this.render();
+        this.render(false);
         this.setEventsTable();
     }
 }
