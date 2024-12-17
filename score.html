@@ -118,29 +118,30 @@
         <div class="score-player">
           <h3>Joueur 1</h3>
           <p id="battleships1">Bateaux restants: 3</p>
-          <p id="winner1" style="color: white; margin-top: 20px;" class="winner">Gagnant</p>
+          <p id="winner1" style="color: white; margin-top: 20px;"
+            class="winner">Gagnant</p>
         </div>
 
         <div class="score-player">
           <h3>Joueur 2</h3>
           <p id="battleships2">Bateaux restants: 0</p>
-          <p id="winner2" style="color: white; margin-top: 20px;" class="loser">Perdant</p>
+          <p id="winner2" style="color: white; margin-top: 20px;"
+            class="loser">Perdant</p>
         </div>
       </div>
 
       <div class="result-summary">
-        <p id="summary">Félicitations, <span id="winner-name">Joueur 1</span> remporte la partie !</p>
+        <p id="summary">Félicitations, <span id="winner-name">Joueur 1</span>
+          remporte la partie !</p>
       </div>
 
       <button class="btn-restart" id="restart-btn">Redémarrer la partie</button>
     </div>
 
     <script>
-      // Variables de bateaux restants
       let battleships1 = 3;
       let battleships2 = 0;
 
-      // Élément HTML pour les bateaux restants
       const battleships1Elem = document.getElementById('battleships1');
       const battleships2Elem = document.getElementById('battleships2');
       const winner1Elem = document.getElementById('winner1');
@@ -148,7 +149,6 @@
       const winnerNameElem = document.getElementById('winner-name');
       const summaryElem = document.getElementById('summary');
 
-      // Fonction pour mettre à jour les informations des bateaux restants
       function updateBateauxRestants() {
         battleships1Elem.textContent = `Bateaux restants: ${battleships1}`;
         battleships2Elem.textContent = `Bateaux restants: ${battleships2}`;
@@ -168,7 +168,6 @@
         }
       }
 
-      // Ajouter un événement pour redémarrer la partie
       const restartBtn = document.getElementById('restart-btn');
       restartBtn.addEventListener('click', function () {
         battleships1 = 5;
@@ -177,7 +176,6 @@
         updateBateauxRestants();
       });
 
-      // Appeler la fonction pour initialiser l'affichage des bateaux restants
       updateBateauxRestants();
     </script>
   </body>
