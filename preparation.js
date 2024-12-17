@@ -97,7 +97,7 @@ class PlayerGrid {
             if (this.grid[y][x] === 0) {
                 td.children[0].style.backgroundColor = 'lightskyblue';
             } else {
-                td.children[0].style.backgroundColor = 'gold';
+                td.children[0].style.backgroundColor = 'gray';
             }
         });
     }
@@ -142,7 +142,7 @@ class PlayerGrid {
                 //For horizontal direction
                 if (this.horizontal) {
                     //If the cell contains a boat, change color to red
-                    if (e.target.parentNode.children[x].children[0].style.backgroundColor === 'gold') {
+                    if (e.target.parentNode.children[x].children[0].style.backgroundColor === 'gray') {
                         e.target.parentNode.children[x].children[0].style.backgroundColor = 'lightcoral';
                         return;
                     }
@@ -153,7 +153,7 @@ class PlayerGrid {
                     //Check if the boat overlaps with another boat
                     let overlap = false;
                     for (let i = x; i < x + this.boatSize; i++) {
-                        if (e.target.parentNode.children[i].children[0].style.backgroundColor === 'gold') {
+                        if (e.target.parentNode.children[i].children[0].style.backgroundColor === 'gray') {
                             overlap = true;
                             break;
                         }
@@ -178,7 +178,7 @@ class PlayerGrid {
                 //For vertical direction
                 } else {
                     //If the cell contains a boat, change color to red
-                    if (e.target.parentNode.parentNode.children[y].children[x].children[0].style.backgroundColor === 'gold') {
+                    if (e.target.parentNode.parentNode.children[y].children[x].children[0].style.backgroundColor === 'gray') {
                         e.target.parentNode.parentNode.children[y].children[x].children[0].style.backgroundColor = 'lightcoral';
                         return;
                     }
@@ -189,7 +189,7 @@ class PlayerGrid {
                     //Check if the boat overlaps with another boat
                     let overlap = false;
                     for (let i = y; i < y + this.boatSize; i++) {
-                        if (e.target.parentNode.parentNode.children[i].children[x].children[0].style.backgroundColor === 'gold') {
+                        if (e.target.parentNode.parentNode.children[i].children[x].children[0].style.backgroundColor === 'gray') {
                             overlap = true;
                             break;
                         }
