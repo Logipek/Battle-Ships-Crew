@@ -188,8 +188,8 @@
 
       .ship-info button{
         margin-right: 10px;
-        padding: 10px;
-        background-color: #7eb1ed;
+        padding: 11px;
+        background-color: #4b9233;
         color: white;
         font-size: 16px;
         font-weight: 500;
@@ -207,6 +207,7 @@
       .ship-info span{
         margin-right: 10px;
       }
+
     </style>
   </head>
   <body>
@@ -231,20 +232,32 @@
       <!-- Right Panel -->
       <div class="right-panel">
         <div class="ship-info">
-          <p>Nombre de croiseur total : <span id="cruiser-count">2</span><button
-              onclick="updateShipCount('cruiser', 1)">Ajouter un
-              croiseur</button></p>
+          <p>Nombre de croiseur total : <span id="cruiser-count">2</span>
+
+            <button
+              onclick="updateShipCount('cruiser', 1)">+</button>
+
+            <button style="background-color: #ef4545;" class="delete-btn-ship"
+              onclick="deleteBoat('cruiser', 1)">-</button>
+
+          </p>
           <p>Nombre de sous-marin total : <span
               id="submarine-count">4</span><button
-              onclick="updateShipCount('submarine', 1)">Ajouter un
-              sous-marin</button></p>
+              onclick="updateShipCount('submarine', 1)">+</button>
+
+            <button style="background-color: #ef4545;" class="delete-btn-ship"
+              onclick="deleteBoat('submarine', 1)">-</button></p>
           <p>Nombre de torpille total : <span id="torpedo-count">1</span><button
-              onclick="updateShipCount('torpedo', 1)">Ajouter une
-              torpille</button></p>
+              onclick="updateShipCount('torpedo', 1)">+</button>
+
+            <button style="background-color: #ef4545;" class="delete-btn-ship"
+              onclick="deleteBoat('torpedo', 1)">-</button></p>
           <p>Nombre de porte-avion total : <span
               id="aircraft-carrier-count">1</span> <button
-              onclick="updateShipCount('aircraft-carrier', 1)">Ajouter un
-              porte-avion</button></p>
+              onclick="updateShipCount('aircraft-carrier', 1)">+</button>
+
+            <button style="background-color: #ef4545;" class="delete-btn-ship"
+              onclick="deleteBoat('aircraft-carrier', 1)">-</button></p>
         </div>
         <div class="start-button">
           <button>Lancer la partie</button>
@@ -269,7 +282,24 @@
         };
 
         const currentCount = parseInt(document.getElementById(shipCounts[type]).innerText);
-        document.getElementById(shipCounts[type]).innerText = currentCount + value;
+        const newCount = currentCount + value;
+        document.getElementById(shipCounts[type]).innerText = newCount <= 5 ? newCount : 5;
+      }
+      
+
+      // function retirer les bateaux
+
+      function deleteBoat(type, value) {
+        const shipCounts = {
+          cruiser: 'cruiser-count',
+          submarine: 'submarine-count',
+          torpedo: 'torpedo-count',
+          'aircraft-carrier': 'aircraft-carrier-count'
+        };
+
+        const currentCount = parseInt(document.getElementById(shipCounts[type]).innerText);
+        const newCount = currentCount - value;
+        document.getElementById(shipCounts[type]).innerText = newCount >= 0 ? newCount : 0;
       }
 
       // Fonction pour copier le lien d'invitation
