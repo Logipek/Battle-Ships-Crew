@@ -24,7 +24,6 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (!$result) {
     $error = "Partie non trouvée";
     echo json_encode(['success' => false, 'error' => $error]);
-    echo $error;
     exit();
 }
 

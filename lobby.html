@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naval Brawl</title>
+    <title>Lobby | Naval Brawl</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
@@ -224,7 +224,7 @@
         </div>
         <div class="invite-link">
           <p>Lien d'invitation</p>
-          <p id="invite-code">13H103JF08FJA</p>
+          <p id="invite-code"></p>
           <button id="copy-button">Copier le lien</button>
         </div>
       </div>
@@ -232,7 +232,7 @@
       <!-- Right Panel -->
       <div class="right-panel">
         <div class="ship-info">
-          <p>Nombre de croiseur total : <span id="cruiser-count">2</span>
+          <p>Nombre de croiseur total : <span id="cruiser-count">1</span>
 
             <button
               onclick="updateShipCount('cruiser', 1)">+</button>
@@ -242,7 +242,7 @@
 
           </p>
           <p>Nombre de sous-marin total : <span
-              id="submarine-count">4</span><button
+              id="submarine-count">2</span><button
               onclick="updateShipCount('submarine', 1)">+</button>
 
             <button style="background-color: #ef4545;" class="delete-btn-ship"
@@ -260,7 +260,7 @@
               onclick="deleteBoat('aircraft-carrier', 1)">-</button></p>
         </div>
         <div class="start-button">
-          <button>Lancer la partie</button>
+          <button id="validate">Lancer la partie</button>
         </div>
       </div>
     </div>
@@ -270,62 +270,6 @@
       <p>Lien copié avec succès!</p>
       <button onclick="closePopup()">Fermer</button>
     </div>
-
-    <script>
-      // Fonction pour mettre à jour les compteurs de bateaux
-      function updateShipCount(type, value) {
-        const shipCounts = {
-          cruiser: 'cruiser-count',
-          submarine: 'submarine-count',
-          torpedo: 'torpedo-count',
-          'aircraft-carrier': 'aircraft-carrier-count'
-        };
-
-        const currentCount = parseInt(document.getElementById(shipCounts[type]).innerText);
-        const newCount = currentCount + value;
-        document.getElementById(shipCounts[type]).innerText = newCount <= 5 ? newCount : 5;
-      }
-      
-
-      // function retirer les bateaux
-
-      function deleteBoat(type, value) {
-        const shipCounts = {
-          cruiser: 'cruiser-count',
-          submarine: 'submarine-count',
-          torpedo: 'torpedo-count',
-          'aircraft-carrier': 'aircraft-carrier-count'
-        };
-
-        const currentCount = parseInt(document.getElementById(shipCounts[type]).innerText);
-        const newCount = currentCount - value;
-        document.getElementById(shipCounts[type]).innerText = newCount >= 0 ? newCount : 0;
-      }
-
-      // Fonction pour copier le lien d'invitation
-      function copyInvite() {
-        const inviteText = document.getElementById('invite-code').innerText;
-        const textArea = document.createElement('textarea');
-        textArea.value = inviteText;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        showPopup();
-      }
-
-      // Fonction pour afficher le popup
-      function showPopup() {
-        document.getElementById('popup').classList.add('active');
-      }
-
-      // Fonction pour fermer le popup
-      function closePopup() {
-        document.getElementById('popup').classList.remove('active');
-      }
-
-      // Attacher la fonction copyInvite au bouton "Copier le lien"
-      document.getElementById('copy-button').addEventListener('click', copyInvite);
-    </script>
+    <script src="lobby.js"></script>
   </body>
 </html>

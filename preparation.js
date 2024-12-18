@@ -1,12 +1,11 @@
 'use strict';
 
 class PlayerGrid {
-    constructor(sizeTwo, sizeThree, sizeFour, sizeFive, roomCode, uid) {
+    constructor(roomCode, uid) {
         this.grid = [];
         this.boatSize = 5;
         this.boatId = 1001;
         this.horizontal = true;
-        this.maxSizes = [sizeTwo, sizeThree, sizeFour, sizeFive];
         this.roomCode = roomCode;
         this.uid = uid;
         this.run();
@@ -20,6 +19,30 @@ class PlayerGrid {
             }
         }
     }
+
+    async getNbBoats() {    
+        const data = {
+            code: this.roomCode,
+            uid: this.uid,
+        };
+
+        await fetch(`https://navalbrawl.jmouzet.fr/api/get_param.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                alert(data.error);
+            } else {
+                this.maxSizes = [data.sizeTwo, data.sizeThree, data.sizeFour, data.sizeFive];
+            }
+        });
+    }
+    
 
     setEventsRadio() {
         document.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -323,14 +346,15 @@ class PlayerGrid {
             if (!data.success) {
                 alert(data.error);
             } else {
-                window.location.href = 'https://navalbrawl.jmouzet.fr/game.html';
+                window.location.href = `https://navalbrawl.jmouzet.fr/test_game2.html?room=${this.roomCode}`;
             }
         })
     }
 
     async run() {
-        this.initGrid();
+        await this.getNbBoats();
         this.changeSizesState();
+        this.initGrid();
         this.setEventsRadio();
         this.setEventButton();
         this.changeSizesState();
@@ -338,12 +362,8 @@ class PlayerGrid {
     }
 }
 
-//Temp
-const sizeTwo = 2;
-const sizeThree = 2;
-const sizeFour = 1;
-const sizeFive = 2;
-const roomCode = "a44506";
-const uid = "6de0dc62da51ecd09a3b2f1440540799";
 
-let playerGrid = new PlayerGrid(sizeTwo, sizeThree, sizeFour, sizeFive, roomCode, uid);
+const roomCode = new URLSearchParams(window.location.search).get('room');
+const uid = document.cookie.split('; ').find(row => row.startsWith('uid')).split('=')[1];
+
+let playerGrid = new PlayerGrid(roomCode, uid);

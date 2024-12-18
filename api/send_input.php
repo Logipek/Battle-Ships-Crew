@@ -56,29 +56,29 @@ $stmt->execute([$code]);
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
 //If it's the first input
-// if (!$result) {
-//     if ($player == 1 && !$player_1_starts) {
-//         $error = "Ce n'est pas encore à votre tour";
-//         echo json_encode(['return' => -1, 'error' => $error]);
-//         exit();
-//     }
-//     if ($player == 2 && $player_1_starts) {
-//         $error = "Ce n'est pas encore à votre tour";
-//         echo json_encode(['return' => -1, 'error' => $error]);
-//         exit();
-//     }
-// } else {
-//     if ($uid == $result['uid'] && $result['hit'] == 0) {
-//         $error = "Ce n'est pas encore à votre tour";
-//         echo json_encode(['return' => -1, 'error' => $error]);
-//         exit();
-//     }
-//     if ($uid != $result['uid'] && $result['hit'] == 1) {
-//         $error = "Ce n'est pas encore à votre tour";
-//         echo json_encode(['return' => -1, 'error' => $error]);
-//         exit();
-//     }
-// }
+if (!$result) {
+    if ($player == 1 && !$player_1_starts) {
+        $error = "Ce n'est pas encore à votre tour";
+        echo json_encode(['return' => -1, 'error' => $error]);
+        exit();
+    }
+    if ($player == 2 && $player_1_starts) {
+        $error = "Ce n'est pas encore à votre tour";
+        echo json_encode(['return' => -1, 'error' => $error]);
+        exit();
+    }
+} else {
+    if ($uid == $result['uid'] && $result['hit'] == 0) {
+        $error = "Ce n'est pas encore à votre tour";
+        echo json_encode(['return' => -1, 'error' => $error]);
+        exit();
+    }
+    if ($uid != $result['uid'] && $result['hit'] == 1) {
+        $error = "Ce n'est pas encore à votre tour";
+        echo json_encode(['return' => -1, 'error' => $error]);
+        exit();
+    }
+}
 
 //Check if this input does not exist
 $stmt = $conn->prepare("SELECT COUNT(*) FROM game_inputs i
